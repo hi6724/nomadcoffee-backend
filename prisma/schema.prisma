@@ -20,5 +20,7 @@ model User {
   avatarURL      String?
   bio            String?
   githubUsername String?
+  followers User[]   @relation("FollowRelation", references: [id])
+  following User[]   @relation("FollowRelation", references: [id])
 
 }

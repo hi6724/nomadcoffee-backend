@@ -11,5 +11,11 @@ export default gql`
     avatarURL: String
     bio: String
     githubUsername: String
+    following: [User]
+    followers: [User]
+    totalFollowing: Int!
+    totalFollowers: Int!
+    isMe: Boolean!
+    isFollowing: Boolean!
   }
 `;
