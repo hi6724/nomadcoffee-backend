@@ -1,0 +1,18 @@
+import client from "../../client";
+
+export default {
+  Query: {
+    seeCategory: async (_, { name }) => {
+      return await client.category.findUnique({ where: { name } });
+    },
+    seeCategories: async (_, { page }) => {
+      if (page < 1) {
+        page = 1;
+      }
+      return await client.category.findMany({
+        take: 5,
+        skip: (page - 1) * 5,
+      });
+    },
+  },
+};

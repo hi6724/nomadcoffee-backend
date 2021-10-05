@@ -8,9 +8,10 @@ export default {
         skip: lastId ? 1 : 0,
         ...(lastId && { cursor: { id: lastId } }),
         where: {
-          username: {
-            startsWith: keyword.toLowerCase(),
-          },
+          OR: [
+            { username: { startsWith: keyword.toLowerCase() } },
+            { username: { startsWith: keyword.toUpperCase() } },
+          ],
         },
       });
       return users;

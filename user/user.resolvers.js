@@ -26,5 +26,7 @@ export default {
       });
       return Boolean(exists);
     },
+    coffeeShops: async ({ id }) =>
+      client.user.findUnique({ where: { id } }).CoffeeShop(),
   },
 };
