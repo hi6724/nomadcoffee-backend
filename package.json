@@ -15,6 +15,10 @@
     "type": "git",
     "url": "git+https://github.com/hi6724/nomadcoffee-backend.git"
   },
+  "engines": {
+    "node": "14.18.0",
+    "npm": "7.24.2"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
