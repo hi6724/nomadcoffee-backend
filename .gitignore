@@ -3,3 +3,4 @@ node_modules
 .env
 tempUpload
 package-lock.json
+build
