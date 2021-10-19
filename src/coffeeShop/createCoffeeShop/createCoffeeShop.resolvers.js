@@ -1,4 +1,5 @@
 import client from "../../client";
+import { uploadToS3 } from "../../shared/shared.utils";
 import { protectResolver } from "../../user/user.utils";
 
 export default {
@@ -9,8 +10,9 @@ export default {
         { name, latitude, longitude, photos, categories },
         { loggedInUser }
       ) => {
-        let categoryObj;
-        let photoObj;
+        let categoryObj = null;
+        let unresolved;
+        let photoObj = null;
         const ok = await client.coffeeShop.findFirst({ where: { name } });
         if (ok) {
           return {
@@ -25,7 +27,12 @@ export default {
           }));
         }
         if (photos) {
-          photoObj = photos.map((photo) => ({ url: photo }));
+          unresolved = photos.map(async (photo) => {
+            const photoUrl = await uploadToS3(photo, loggedInUser.id, "photos");
+            console.log(photoUrl);
+            return { url: photoUrl };
+          });
+          photoObj = await Promise.all(unresolved);
         }
         await client.coffeeShop.create({
           data: {

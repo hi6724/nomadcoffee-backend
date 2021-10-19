@@ -10,7 +10,7 @@ export default {
         page = 1;
       }
       return await client.category.findMany({
-        take: 5,
+        take: 9,
         skip: (page - 1) * 5,
       });
     },

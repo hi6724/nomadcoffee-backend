@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import client from "../../client";
 import { protectResolver } from "../user.utils";
 import fs from "fs";
+import { deleteFileS3, uploadToS3 } from "../../shared/shared.utils";
 
 export default {
   Mutation: {
@@ -22,14 +23,15 @@ export default {
       ) => {
         let newAvatarURL = null;
         if (avatarURL) {
-          const { filename, createReadStream } = await avatarURL;
-          const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
-          const readStream = createReadStream();
-          const writeStream = fs.createWriteStream(
-            process.cwd() + "/tempUpload/" + newFilename
+          if (loggedInUser.avatarURL) {
+            await deleteFileS3(loggedInUser.avatarURL, "avatars");
+          }
+          newAvatarURL = await uploadToS3(
+            avatarURL,
+            loggedInUser.id,
+            "avatars"
           );
-          readStream.pipe(writeStream);
-          newAvatarURL = `http://localhost:4000/static/${newFilename}`;
+          console.log(newAvatarURL);
         }
 
         let uglyPassword = null;

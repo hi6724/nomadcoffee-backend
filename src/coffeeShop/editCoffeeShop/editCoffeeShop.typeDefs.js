@@ -5,7 +5,7 @@ export default gql`
     editCoffeeShop(
       id: Int
       name: String
-      photos: [String]
+      photos: [Upload]
       categories: [String]
     ): MutationResult!
   }

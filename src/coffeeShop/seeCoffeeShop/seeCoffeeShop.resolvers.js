@@ -5,11 +5,16 @@ export default {
     seeCoffeeShop: async (_, { id }) =>
       client.coffeeShop.findUnique({ where: { id } }),
 
-    seeCoffeeShops: async (_, { lastId }) =>
-      client.coffeeShop.findMany({
-        skip: lastId !== 0 ? 1 : 0,
-        take: 5,
-        ...(lastId !== 0 && { cursor: { id: lastId } }),
-      }),
+    seeCoffeeShops: async (_, { page }) => {
+      const totalPages = await client.coffeeShop.count();
+      const coffeeShops = client.coffeeShop.findMany({
+        skip: (page - 1) * 3,
+        take: 3,
+      });
+      return {
+        CoffeeShops: coffeeShops,
+        totalPages: Math.ceil(totalPages / 3),
+      };
+    },
   },
 };
