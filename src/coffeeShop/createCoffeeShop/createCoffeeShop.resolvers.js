@@ -5,11 +5,7 @@ import { protectResolver } from "../../user/user.utils";
 export default {
   Mutation: {
     createCoffeeShop: protectResolver(
-      async (
-        _,
-        { name, latitude, longitude, photos, categories },
-        { loggedInUser }
-      ) => {
+      async (_, { name, latitude, longitude, photos, categories }, { loggedInUser }) => {
         let categoryObj = null;
         let unresolved;
         let photoObj = null;
@@ -29,7 +25,6 @@ export default {
         if (photos) {
           unresolved = photos.map(async (photo) => {
             const photoUrl = await uploadToS3(photo, loggedInUser.id, "photos");
-            console.log(photoUrl);
             return { url: photoUrl };
           });
           photoObj = await Promise.all(unresolved);
