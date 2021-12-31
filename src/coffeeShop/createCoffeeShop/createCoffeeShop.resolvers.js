@@ -18,20 +18,21 @@ export default {
         }
         if (categories) {
           categoryObj = categories.map((category) => ({
-            where: { name: category },
-            create: { name: category, slug: category },
+            where: { name: category.toLowerCase() },
+            create: { name: category.toLowerCase(), slug: category.toLowerCase() },
           }));
         }
         if (photos) {
           unresolved = photos.map(async (photo) => {
             const photoUrl = await uploadToS3(photo, loggedInUser.id, "photos");
+            console.log(photoUrl);
             return { url: photoUrl };
           });
           photoObj = await Promise.all(unresolved);
         }
         await client.coffeeShop.create({
           data: {
-            name,
+            name: name.toLowerCase(),
             latitude,
             longitude,
             user: {

@@ -43,6 +43,7 @@
     "graphql": "^15.6.0",
     "graphql-tools": "^8.2.0",
     "graphql-upload": "^12.0.0",
+    "image-size": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "stream": "0.0.2"
   },

@@ -5,10 +5,8 @@ export default {
     user: async ({ userId }) => {
       return await client.user.findUnique({ where: { id: userId } });
     },
-    photos: ({ id }) =>
-      client.coffeeShopPhoto.findMany({ where: { coffeeShopId: id } }),
-    categories: ({ id }) =>
-      client.category.findMany({ where: { shops: { some: { id } } } }),
+    photos: ({ id }) => client.coffeeShopPhoto.findMany({ where: { coffeeShopId: id } }),
+    categories: ({ id }) => client.category.findMany({ where: { shops: { some: { id } } } }),
   },
   Category: {
     totalShops: async ({ name }) => {

@@ -17,7 +17,7 @@ export default {
         await client.user.create({
           data: {
             name,
-            username,
+            username: username.toLowerCase(),
             password: uglyPassword,
             location,
             email,

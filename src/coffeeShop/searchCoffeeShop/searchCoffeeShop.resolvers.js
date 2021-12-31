@@ -2,14 +2,14 @@ import client from "../../client";
 
 export default {
   Query: {
-    searchCoffeeShop: (_, { name }) =>
-      client.coffeeShop.findMany({
-        where: {
-          OR: [
-            { name: { startsWith: name.toLowerCase() } },
-            { name: { startsWith: name.toUpperCase() } },
-          ],
-        },
-      }),
+    searchCoffeeShop: async (_, { keyword }) => {
+      const categories = await client.category.findMany({
+        where: { name: { contains: keyword.toLowerCase() } },
+      });
+      const coffeeShops = await client.coffeeShop.findMany({
+        where: { name: { contains: keyword.toLowerCase() } },
+      });
+      return { coffeeShops, categories };
+    },
   },
 };
