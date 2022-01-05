@@ -8,7 +8,7 @@ import { deleteFileS3, uploadToS3 } from "../../shared/shared.utils";
 export default {
   Mutation: {
     editProfile: protectResolver(
-      async (_, { avatarURL, name, location, password: newPassword, bio }, { loggedInUser }) => {
+      async (_, { avatarURL, name, location, password: newPassword, bio, username }, { loggedInUser }) => {
         let newAvatarURL = null;
         if (avatarURL) {
           if (loggedInUser.avatarURL) {
@@ -25,6 +25,7 @@ export default {
         const updatedUser = await client.user.update({
           where: { id: loggedInUser.id },
           data: {
+            username: username.toLowerCase(),
             name,
             location,
             bio,

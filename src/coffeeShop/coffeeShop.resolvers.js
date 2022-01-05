@@ -21,7 +21,7 @@ export default {
         page = 1;
       }
       return client.category.findUnique({ where: { id } }).shops({
-        take: 9,
+        take: 5,
         skip: (page - 1) * 5,
       });
     },
