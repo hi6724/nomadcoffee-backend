@@ -9,6 +9,6 @@ export default gql`
     totalPages: Int
   }
   type Query {
-    seeCoffeeShops(page: Int): SeeCoffeeShopsResult
+    seeCoffeeShops(page: Int): [CoffeeShop]
   }
 `;

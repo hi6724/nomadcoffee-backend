@@ -13,10 +13,7 @@ export default {
           id: "desc",
         },
       });
-      return {
-        CoffeeShops: coffeeShops,
-        totalPages: Math.ceil(totalPages / 3),
-      };
+      return coffeeShops;
     },
   },
 };
