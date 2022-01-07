@@ -5,7 +5,6 @@ export default {
     seeCoffeeShop: async (_, { id }) => client.coffeeShop.findUnique({ where: { id } }),
 
     seeCoffeeShops: async (_, { offset }) => {
-      const totalPages = await client.coffeeShop.count();
       const coffeeShops = client.coffeeShop.findMany({
         skip: offset,
         take: 3,
