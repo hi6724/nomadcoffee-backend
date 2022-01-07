@@ -4,10 +4,10 @@ export default {
   Query: {
     seeCoffeeShop: async (_, { id }) => client.coffeeShop.findUnique({ where: { id } }),
 
-    seeCoffeeShops: async (_, { page }) => {
+    seeCoffeeShops: async (_, { offset }) => {
       const totalPages = await client.coffeeShop.count();
       const coffeeShops = client.coffeeShop.findMany({
-        skip: (page - 1) * 3,
+        skip: offset,
         take: 3,
         orderBy: {
           id: "desc",
